@@ -1,0 +1,3 @@
+# Autoconf {#setup-hook-autoconf}
+
+A `derivation` `autoreconfHook` adiciona `autoreconfPhase`, que executa autoreconf, libtoolize e automake, essencialmente preparando o script `configure` em compilações baseadas em autotools. A maioria dos pacotes baseados em autotools já vem com o script `configure` pré-gerado, mas este `hook` é necessário para alguns pacotes e quando você precisa aplicar patches nos scripts `configure` do pacote.

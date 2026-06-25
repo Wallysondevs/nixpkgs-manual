@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --font-sans: var(--app-font-sans);
+  --font-mono: var(--app-font-mono);
+}
+
+:root {
+  --nix-bg: 220 20% 7%;
+  --nix-bg-2: 220 18% 10%;
+  --nix-fg: 210 14% 88%;
+  --nix-dim: 210 10% 45%;
+  --nix-blue: 207 90% 61%;
+  --nix-purple: 262 70% 65%;
+  --nix-green: 142 70% 55%;
+  --nix-red: 0 72% 60%;
+  --background: 220 20% 7%;
+  --foreground: 210 14% 88%;
+  --app-font-sans: 'Inter', sans-serif;
+  --app-font-mono: 'JetBrains Mono', monospace;
+}
+
+body {
+  background: hsl(var(--nix-bg));
+  color: hsl(var(--nix-fg));
+  font-family: var(--app-font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+html { scrollbar-color: hsl(var(--nix-blue)) hsl(var(--nix-bg-2)); scrollbar-width: thin; }
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: hsl(var(--nix-bg-2)); }
+::-webkit-scrollbar-thumb { background: hsl(var(--nix-blue)); border-radius: 4px; opacity: 0.6; }
+
+.prose { max-width: 100%; }
+.prose h1 { font-size: 2rem; font-weight: 700; color: hsl(var(--nix-blue)); margin-bottom: 1rem; border-bottom: 1px solid hsl(var(--nix-blue)/0.2); padding-bottom: 0.5rem; }
+.prose h2 { font-size: 1.5rem; font-weight: 700; color: hsl(var(--nix-fg)); margin-top: 2rem; margin-bottom: 0.75rem; }
+.prose h3 { font-size: 1.2rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.5rem; }
+.prose p { margin: 0.75rem 0; line-height: 1.7; }
+.prose a { color: hsl(var(--nix-blue)); text-decoration: underline; }
+.prose code { font-family: var(--app-font-mono); font-size: 0.85em; background: hsl(var(--nix-bg-2)); padding: 0.15em 0.4em; border-radius: 4px; }
+.prose pre { background: hsl(var(--nix-bg-2)); border: 1px solid hsl(var(--nix-blue)/0.1); border-radius: 8px; padding: 1rem; overflow-x: auto; margin: 1rem 0; }
+.prose pre code { background: none; padding: 0; font-size: 0.85rem; }
+.prose ul, .prose ol { margin: 0.75rem 0; padding-left: 1.5rem; }
+.prose li { margin: 0.35rem 0; line-height: 1.6; }
+.prose blockquote { border-left: 3px solid hsl(var(--nix-purple)); padding-left: 1rem; margin: 1rem 0; color: hsl(var(--nix-dim)); }
+.prose table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+.prose th, .prose td { border: 1px solid hsl(var(--nix-blue)/0.15); padding: 0.5rem 0.75rem; text-align: left; }
+.prose th { background: hsl(var(--nix-bg-2)); font-weight: 600; }

@@ -1,0 +1,5 @@
+# Locales {#locales}
+
+Para permitir o uso simultâneo de pacotes vinculados a diferentes versões de `glibc` com diferentes formatos de arquivo de locale, o Nixpkgs aplica patches no `glibc` para que ele dependa da variável de ambiente `LOCALE_ARCHIVE`.
+
+Em distribuições que não são NixOS, esta variável obviamente não está definida. Isso pode causar regressões no suporte a idiomas ou até mesmo travamentos em alguns programas fornecidos pelo Nixpkgs. A maneira mais simples de mitigar este problema é exportar a variável `LOCALE_ARCHIVE` apontando para `${glibcLocales}/lib/locale/locale-archive`. A desvantagem (e a razão pela qual isso não é o padrão) é o tamanho relativamente grande (cem MiB) do conjunto completo de locales. É possível construir um conjunto personalizado de locales sobrescrevendo os parâmetros `allLocales` e `locales` do pacote.
