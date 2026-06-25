@@ -1,0 +1,11 @@
+# Nginx {#sec-nginx}
+
+[Nginx](https://nginx.org) é um proxy reverso e servidor web leve.
+
+## ETags em arquivos estáticos servidos do Nix store {#sec-nginx-etag}
+
+HTTP possui alguns mecanismos diferentes para cache, a fim de evitar que os clientes precisem baixar o mesmo conteúdo repetidamente se um recurso não foi alterado desde a última vez que foi solicitado. Quando o nginx é usado como servidor para arquivos estáticos, ele implementa o mecanismo de cache baseado no cabeçalho de resposta [`Last-Modified`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Last-Modified) automaticamente; infelizmente, ele funciona usando timestamps do sistema de arquivos para determinar o valor do cabeçalho `Last-Modified`. Isso não oferece o comportamento desejado quando o arquivo está no Nix store porque todos os timestamps de arquivo são definidos como 0 (por razões relacionadas à reprodutibilidade de build).
+
+Felizmente, HTTP suporta um mecanismo de cache alternativo (e mais eficaz): o cabeçalho de resposta [`ETag`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag). O valor do cabeçalho `ETag` especifica algum identificador para o conteúdo específico que o servidor está enviando (por exemplo, um hash). Quando um cliente faz uma segunda solicitação para o mesmo recurso, ele envia esse valor de volta em um cabeçalho `If-None-Match`. Se o valor do ETag não for alterado, então o servidor não precisa reenviar o conteúdo.
+
+O pacote nginx no Nixpkgs é corrigido de forma que, quando o nginx serve um arquivo de `/nix/store`, o hash no caminho do store é usado como cabeçalho `ETag` na resposta HTTP, fornecendo assim a funcionalidade de cache adequada. Com o NixOS 24.05 e posterior, o `ETag` inclui adicionalmente o comprimento do conteúdo da resposta, para garantir que arquivos servidos com compressão estática não compartilhem `ETag`s com sua versão descompactada. Esta funcionalidade de `ETag` é ativada automaticamente; você não precisa modificar nenhuma configuração para obter este comportamento.

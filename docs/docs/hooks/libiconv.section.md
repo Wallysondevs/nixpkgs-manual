@@ -1,0 +1,3 @@
+# libiconv, libintl {#libiconv-libintl}
+
+Algumas bibliotecas adicionam automaticamente suas bibliotecas a `NIX_LDFLAGS`, tornando seus símbolos automaticamente disponíveis para o *linker*. Isso inclui libiconv e libintl (gettext). Isso é feito para fornecer compatibilidade entre GNU Linux, onde libiconv e libintl são incluídas, e outros sistemas onde isso pode não ser o caso. Às vezes, esse comportamento não é desejado. Para desabilitar esse comportamento, defina `dontAddExtraLibs`.
